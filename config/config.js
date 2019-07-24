@@ -65,7 +65,7 @@ module.exports = {
      * Viewer to display video files
      * [videojs | jwplayer | universalviewer | kaltura]
      */
-    videoViewer: "kaltura",
+    videoViewer: "universalviewer",
 
     /* 
      * Viewer to display pdf files
