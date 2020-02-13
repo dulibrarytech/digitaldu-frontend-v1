@@ -118,6 +118,7 @@ module.exports = {
         {"field": "abstract", "boost": "2"},
         {"field": "creator", "boost": "2"},
         {"field": "subject", "boost": "1"},
+        {"field": "display_record.title"},
         {"field": "display_record.accessCondition"},
         {"field": "display_record.classification"},
         {"field": "display_record.identifier"},
