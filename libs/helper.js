@@ -1,3 +1,5 @@
+const sanitizeHtml = require('sanitize-html');
+
 exports.testObject = function(object) {
 	return (object && typeof object != "undefined");
 }
@@ -13,6 +15,26 @@ exports.isObjectEmpty = function(object) {
             return false;
     }
     return true;
+}
+
+exports.sanitizeHttpParamsObject = function(object) {
+	for(var key in object) {
+		if(typeof object[key] == 'object') {
+			for(index in object[key]) {
+				if(key == "f") {
+					for(facet in object[key][index]) {
+						object[key][index][facet] = sanitizeHtml(object[key][index][facet]);
+					}
+				}
+				else {
+					object[key][index] = sanitizeHtml(object[key][index]);
+				}
+			}
+		}
+		else {
+			object[key] = sanitizeHtml(object[key]);
+		}
+	}
 }
 
 // Extract values from jsonObject. Values to parse out are set in the valueMap:

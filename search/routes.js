@@ -8,10 +8,14 @@
 'use strict';
 
 var Search = require('../search/controller');
+var Helper = require('../libs/helper');
 
 module.exports = function (app) {
-
-    // Search the discovery index
+	app.use(function (req, res, next) {
+      Helper.sanitizeHttpParamsObject(req.query);
+      next()
+    })
+    
     app.route('/search')
         .get(Search.search);
 };
