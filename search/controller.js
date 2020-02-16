@@ -27,16 +27,15 @@ exports.search = function(req, res) {
 		collection = req.query.collection || null,
 		showAll = req.query.showAll || [],
 		expandFacets = req.query.expand || [],
-		daterange = req.query.from || req.query.to ? {
-			from: req.query.from || 0,
-			to: req.query.to || new Date().getFullYear()
+		daterange = req.query.from && req.query.to ? {
+			from: req.query.from,
+			to: req.query.to
 		} : null;
 
 	// Allow empty search to return all results in the repository
-	// if(query == "") {
-	// 	query = '*';
-	// }
-	// Moved to service ^^^
+	if(query == "") {
+		query = '*';
+	}
 
 	// Get the search type
 	// TODO move to helper function
@@ -94,7 +93,7 @@ exports.search = function(req, res) {
 		// Don't show the daterange limit option if there is a daterange parameter preent, or if there are no search results
 		data.options["showDateRange"] = (daterange || response.count == 0) ? false : config.showDateRangeLimiter;
 
-		Metadata.addResultMetadataDisplays(response.results);
+		Metadata.addResultMetadataDisplays(response.results || []);
 		data.results = response.results;
 
 		if(error) {

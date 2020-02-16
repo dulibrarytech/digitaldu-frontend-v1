@@ -211,10 +211,6 @@ exports.renderObjectView = function(req, res) {
 			data.error = error;
 			renderView(data);
 		}
-		else if(response == null) {
-			data.error = "Object not found: " + req.params.pid;
-			renderView(data);
-		}
 		else {
 			var object = response,
 				index = req.params.index && isNaN(parseInt(req.params.index)) === false ? req.params.index : 0;
@@ -282,14 +278,10 @@ exports.getDatastream = function(req, res) {
 				Service.getThumbnailPlaceholderStream(function(error, stream) {
 					if(error) {
 						console.log(error);
-						res.sendStatus(503);
-					}
-					else if(stream) {
-						stream.pipe(res);
+						res.sendStatus(500);
 					}
 					else {
-						console.log("Could not fetch stream: ", pid);
-						res.sendStatus(404);
+						stream.pipe(res);
 					}
 				});
 			}
@@ -297,19 +289,19 @@ exports.getDatastream = function(req, res) {
 				stream.pipe(res);
 			}
 		}
+		else if(!stream) {
+			console.log("Stream not found, object id ", pid, "Datastream id", ds);
+			res.sendStatus(403);
+		}
 		else {
 			if(stream.headers['content-type'] == "text/plain" && ds.toLowerCase() == "tn") {
 				Service.getThumbnailPlaceholderStream(function(error, stream) {
 					if(error) {
 						console.log(error);
-						res.sendStatus(503);
-					}
-					else if(stream) {
-						stream.pipe(res);
+						res.sendStatus(500);
 					}
 					else {
-						console.log("Could not fetch stream: ", pid);
-						res.sendStatus(404);
+						stream.pipe(res);
 					}
 				});
 			}

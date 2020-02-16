@@ -354,7 +354,7 @@ exports.getFacets = getFacets;
 /**
  * 
  *
- * @param 
+ * @param
  * @return 
  */
 exports.getDatastream = function(objectID, datastreamID, callback) {
@@ -363,8 +363,13 @@ exports.getDatastream = function(objectID, datastreamID, callback) {
   if(datastreamID == "object") {
     fetchObjectByPid(objectID, function(error, object) {
 
+      if(!object) {
+        callback("Object not found: pid: " + objectID, null)
+      }
+
       // Get the datastream ID from the configuration based on the object mime type
       datastreamID = Helper.getDsType(object.mime_type);
+        console.log("TEST service::getDatastream dsid, mimetype", datastreamID, object.mime_type)
       Repository.streamData(objectID, datastreamID, function(error, stream) {
         if(error) {
           callback(error, null);
@@ -378,6 +383,7 @@ exports.getDatastream = function(objectID, datastreamID, callback) {
 
   // Stream using the requested datastream ID
   else {
+      
     Repository.streamData(objectID, datastreamID, function(error, stream) {
       if(error) {
         callback(error, null);

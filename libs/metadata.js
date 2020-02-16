@@ -92,7 +92,7 @@ exports.createMetadataDisplayObject = function(result, collections=[]) {
  * @param 
  * @return 
  */
-exports.addResultMetadataDisplays = function(resultArray) {
+exports.addResultMetadataDisplays = function(resultArray=[]) {
 	var metadata = {},
 	    displayFields = config.resultsDisplay,
 		displayRecord = {},
