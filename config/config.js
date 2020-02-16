@@ -118,7 +118,6 @@ module.exports = {
         {"field": "abstract", "boost": "2"},
         {"field": "creator", "boost": "2"},
         {"field": "subject", "boost": "1"},
-        {"field": "display_record.title"},
         {"field": "display_record.accessCondition"},
         {"field": "display_record.classification"},
         {"field": "display_record.identifier"},
@@ -223,12 +222,10 @@ module.exports = {
      * Key must be "Date", value is location in index display object
      * If multiple dates exist in the index, the first that appears will be used
      */
-    objectDateField: "display_record.originInfo.d_created",
     objectDateValue: {
         //"Date": '{"dates":[{"date": "VALUE", "type": "creation"}]}'
         "Date": '{"originInfo":[{"d_created": "VALUE"}]}'
     },
-    datespanRange: "5", // "circa"
 
     /*
      * Fields to display in the summary data section (above Details link)
