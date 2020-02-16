@@ -366,18 +366,19 @@ exports.getDatastream = function(objectID, datastreamID, callback) {
       if(!object) {
         callback("Object not found: pid: " + objectID, null)
       }
-
-      // Get the datastream ID from the configuration based on the object mime type
-      datastreamID = Helper.getDsType(object.mime_type);
-        console.log("TEST service::getDatastream dsid, mimetype", datastreamID, object.mime_type)
-      Repository.streamData(objectID, datastreamID, function(error, stream) {
-        if(error) {
-          callback(error, null);
-        }
-        else {
-          callback(null, stream);
-        }
-      });
+      else {
+        // Get the datastream ID from the configuration based on the object mime type
+        datastreamID = Helper.getDsType(object.mime_type);
+          console.log("TEST service::getDatastream dsid, mimetype", datastreamID, object.mime_type)
+        Repository.streamData(objectID, datastreamID, function(error, stream) {
+          if(error) {
+            callback(error, null);
+          }
+          else {
+            callback(null, stream);
+          }
+        });
+      }
     });
   }
 
