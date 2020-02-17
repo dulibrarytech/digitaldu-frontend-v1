@@ -237,7 +237,7 @@ exports.renderObjectView = function(req, res) {
 			// Render singular object
 			else {
 				// Can't lookup index of a non-parent object
-				if(index > 0) {
+				if(index > 0 || !object) {
 					data.error = "Object not found";
 					renderView(data);
 				}
