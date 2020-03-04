@@ -18,7 +18,7 @@
   <div class="object-options">
     <div class="container">
         <span>
-          <button class="collapsible" alt="View Details">View Details</button>
+          <!-- <button class="collapsible" alt="View Details">View Details</button> -->
           <button id="file-download" alt="Download Item" disabled>Download Item</button>
         </span>
     </div>
@@ -48,14 +48,6 @@
       </div>
     </div>
   </div>
-
-  <div class="object-data container">
-    <% for (var key in summary) { %>
-      <h3><%= key %></h3>
-      <p><%= summary[key] %></p>
-    <% } %>
-  </div>
-
 </div>
 
 <% include partials/footer %>

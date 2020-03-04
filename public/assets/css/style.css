@@ -23,7 +23,7 @@ body {
   -ms-overflow-scrolling: touch;
   -o-overflow-scrolling: touch;
   overflow-scrolling: touch;
-  color: #181818;
+  color: black;
 }
 
 hr {
@@ -1112,7 +1112,6 @@ div.mods-display {
 
 div.metadata-content {
   padding: 0 18px;
-  display: none;
   overflow: hidden;
 }
 /* End object data section */
@@ -1148,6 +1147,10 @@ div.metadata-content {
 
 .uv .mainPanel .title {
   overflow: initial !important;
+}
+
+#uv .uv-icon-download {
+  display: none;
 }
 
 #uv .btn-primary, #uv .overlay .close {
@@ -1190,6 +1193,10 @@ div.metadata-content {
 
 .info-content h2, h4 {
   margin-bottom: 30px;
+}
+
+.info-content h6 {
+  font-weight: bold;
 }
 
 .info-content ul li, 
