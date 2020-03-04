@@ -195,7 +195,7 @@ exports.searchIndex = function(query, type, facets=null, collection=null, pageNu
     }
 
     // TEST
-    console.log("DEV search module query object:", util.inspect(queryObj, {showHidden: false, depth: null}));
+    //console.log("DEV search module query object:", util.inspect(queryObj, {showHidden: false, depth: null}));
 
     // Get elasticsearch aggregations object 
     var facetAggregations = Helper.getFacetAggregationObject(config.facets);

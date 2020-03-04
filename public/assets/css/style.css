@@ -7,7 +7,7 @@ html,
 body {
   background: #e5e3e1;
   font-family: 'Montserrat', 'Poppins', 'Raleway', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1;
   min-height: 100%;
   margin: 0 !important;
@@ -47,10 +47,14 @@ h3 {
   -webkit-margin-after: 0px;
 }
 
-h2, h4 {
+/*h2, h4 {
   font-size: 1.1em;
   font-weight: bold;
   -webkit-margin-after: 0px;
+}*/
+
+h4 {
+  font-size: 1.8em;
 }
 
 a:hover,
@@ -822,7 +826,7 @@ div.collection-breadcrumbs a:visited {
     padding: 0;
 }
 .collection-thumb .item-title {
-  font-size: 15px;
+  font-size: 17px;
 }
 .item-title a {
     color: #222;
@@ -1171,6 +1175,34 @@ div.metadata-content {
   margin-bottom: 15px;
 }
 
+.info-content {
+  padding: 50px 0;
+}
+
+.info-content h2 {
+  font-weight: bold;
+}
+
+.info-content h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.info-content h2, h4 {
+  margin-bottom: 30px;
+}
+
+.info-content ul li, 
+.info-content dl,
+.info-content dt {
+  margin-bottom: 6px;
+}
+
+.info-content a {
+  text-decoration: underline;
+  margin-top: 3px;
+}
+
 footer {
     background: #8b2332;
     /* height: 230px; [C22] */
@@ -1226,8 +1258,4 @@ footer .footer-column {
 .footer-link-list ul li {
     /*list-style-type: none;*/
     padding: 7px 0;
-}
-
-.footer-link-list label {
-    text-decoration: underline;
 }
