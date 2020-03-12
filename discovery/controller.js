@@ -286,7 +286,7 @@ exports.getDatastream = function(req, res) {
 				});
 			}
 			else {
-				stream.pipe(res);
+				res.sendStatus(403);
 			}
 		}
 		else if(!stream) {
