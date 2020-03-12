@@ -10,7 +10,7 @@
 
 <div class="row no-side-margin section content">
   <div class="col-md-3">
-    <% if(results.length > 0) { %>
+    <% if(results && results.length > 0) { %>
       <div class="result-facets facets sidebar-section">
         <h4>Limit Your Search</h4>
         <hr>
@@ -63,7 +63,7 @@
       <% if(typeof view != 'undefined' && view == "Grid") { %>
 
         <div class="search-results-grid">
-          <% if(results.length > 0) { %>
+          <% if(results && results.length > 0) { %>
             <div class="row">
               <% for (var i = 0; i < results.length; i++) { %>
                 <div class="col-sm-3 thumb">
@@ -95,7 +95,7 @@
       <% } else { %>
 
         <div class="search-results-list container">
-          <% if(results.length > 0) { %>
+          <% if(results && results.length > 0) { %>
             <% for (var i = 0; i < results.length; i++) { %>
               <div class="row search-result">
                 <div class="col-md-9 search-result-data">
