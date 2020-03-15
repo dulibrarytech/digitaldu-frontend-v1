@@ -53,7 +53,10 @@ exports.searchIndex = function(query, type, facets=null, collection=null, pageNu
      */
     for(var index of queryArray) {
        // This is a string literal search if the query is contained by parentheses.  Use 'match_phrase'.  Must match the entire query
-      if(index[0] == '"' && index[ index.length-1 ] == '"') {
+      if(!index) {
+        continue;
+      }
+      else if(index[0] == '"' && index[ index.length-1 ] == '"') {
         index = index.replace(/"/g, '');  
         queryType = "match_phrase";
       }
