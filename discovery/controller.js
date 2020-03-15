@@ -286,12 +286,12 @@ exports.getDatastream = function(req, res) {
 				});
 			}
 			else {
-				res.sendStatus(403);
+				res.sendStatus(404);
 			}
 		}
 		else if(!stream) {
 			console.log("Stream not found, object id ", pid, "Datastream id", ds);
-			res.sendStatus(403);
+			res.sendStatus(404);
 		}
 		else {
 			if(stream.headers['content-type'] == "text/plain" && ds.toLowerCase() == "tn") {
