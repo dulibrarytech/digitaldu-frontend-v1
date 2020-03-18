@@ -24,6 +24,8 @@
 
     <% if(error) { %>
       <h5><%- error %></h5>
+    <% } else if(!query) { %>
+      <h5>We're sorry, an error has occurred. Please retry your search</h5>
     <% } else { %>
 
       <% if(query.length >= 0) { %>
