@@ -153,7 +153,7 @@ exports.getResultsLabel = function(query, facets) {
  * @return 
  */
 exports.getDaterangeQuery = function(daterange) {
-  if(/[0-9][0-9][0-9][0-9]/g.test(daterange.from) && /[0-9][0-9][0-9][0-9]/g.test(daterange.to)) {
+  if(/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/g.test(daterange.from) && /[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/g.test(daterange.to)) {
       let dateMatchFields = [], dateQuery = {}, dateStr = "";
 
       // Build a string of all dates included in the specified range

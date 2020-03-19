@@ -148,6 +148,12 @@ exports.searchIndex = function(query, type, facets=null, collection=null, pageNu
     }
 
     if(daterange) {
+      if(!/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/.test(daterange.from)) {
+        daterange.from = daterange.from + "-01-01";
+      }
+      if(!/[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]/.test(daterange.to)) {
+        daterange.to = daterange.to + "-12-31";
+      }
       mustMatchFields.push(Helper.getDaterangeQuery(daterange));
     }
 
