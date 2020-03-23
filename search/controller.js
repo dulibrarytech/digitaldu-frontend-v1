@@ -68,56 +68,63 @@ exports.search = function(req, res) {
 			}
 		}
 	}
-		
-	Service.searchIndex(query, type, facets, collection, page, pageSize, daterange, function(error, response) {
-		var data = {
-			error: null,
-			facets: {},
-			facet_breadcrumb_trail: null,
-			results: [],
-			pageData: null,
-			page: req.query.page || 1,
-			root_url: config.rootUrl,
-			collection_scope: "",
-			query: Helper.getResultsLabel(req.query.q, facets),
-			view: req.query.view || config.defaultSearchResultsView || "list",
-			options: {}
-		},
-		path = config.rootUrl + req.url.substring(req.url.indexOf('search')-1);
 
-		data.options["expandFacets"] = expandFacets;
-		data.options["perPageCountOptions"] = config.resultCountOptions;
-		data.options["resultsViewOptions"] = config.resultsViewOptions;
-		data.options["pageSize"] = pageSize;
+	// Temporarily handle page requests <10000
+	let from = (page - 1) * pageSize;
+    if(from + pageSize > 10000) {
+      res.sendStatus(404);
+    }
 
-		// Don't show the daterange limit option if there is a daterange parameter preent, or if there are no search results
-		data.options["showDateRange"] = (daterange || response.count == 0) ? false : config.showDateRangeLimiter;
+    else {
+    	Service.searchIndex(query, type, facets, collection, page, pageSize, daterange, function(error, response) {
+			var data = {
+				error: null,
+				facets: {},
+				facet_breadcrumb_trail: null,
+				results: [],
+				pageData: null,
+				page: req.query.page || 1,
+				root_url: config.rootUrl,
+				collection_scope: "",
+				query: Helper.getResultsLabel(req.query.q, facets),
+				view: req.query.view || config.defaultSearchResultsView || "list",
+				options: {}
+			},
+			path = config.rootUrl + req.url.substring(req.url.indexOf('search')-1);
 
-		Metadata.addResultMetadataDisplays(response.results || []);
-		data.results = response.results;
+			data.options["expandFacets"] = expandFacets;
+			data.options["perPageCountOptions"] = config.resultCountOptions;
+			data.options["resultsViewOptions"] = config.resultsViewOptions;
+			data.options["pageSize"] = pageSize;
 
-		if(error) {
-			console.error(error);
-			data.results = null;
-			data.error = error;
-			return res.render('results', data);
-		}
-		else {
-			var facetList = Facets.getFacetList(response.facets, showAll);
-			if(facets) {
-				facets = Facets.getSearchFacetObject(facets);
+			// Don't show the daterange limit option if there is a daterange parameter preent, or if there are no search results
+			data.options["showDateRange"] = (daterange || response.count == 0) ? false : config.showDateRangeLimiter;
+
+			Metadata.addResultMetadataDisplays(response.results || []);
+			data.results = response.results;
+
+			if(error) {
+				console.error(error);
+				data.results = null;
+				data.error = error;
+				return res.render('results', data);
 			}
+			else {
+				var facetList = Facets.getFacetList(response.facets, showAll);
+				if(facets) {
+					facets = Facets.getSearchFacetObject(facets);
+				}
 
-			Format.formatFacetDisplay(facetList, function(error, facetList) {
-				Format.formatFacetBreadcrumbs(facets, function(error, facets) {
-					
-					data.facets = Facets.create(facetList, config.rootUrl, showAll, expandFacets);
-					data.facet_breadcrumb_trail = Facets.getFacetBreadcrumbObject(facets, daterange, config.rootUrl); 
-					data.pagination = Paginator.create(response.results, data.page, pageSize, response.count, path);
+				Format.formatFacetDisplay(facetList, function(error, facetList) {
+					Format.formatFacetBreadcrumbs(facets, function(error, facets) {
 						
-					return res.render('results', data);
+						data.facets = Facets.create(facetList, config.rootUrl, showAll, expandFacets);
+						data.facet_breadcrumb_trail = Facets.getFacetBreadcrumbObject(facets, daterange, config.rootUrl); 
+						data.pagination = Paginator.create(response.results, data.page, pageSize, response.count, path);
+						return res.render('results', data);
+					});
 				});
-			});
-		}
-	});
+			}
+		});
+    }
 };

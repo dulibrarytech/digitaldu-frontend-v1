@@ -233,22 +233,14 @@ exports.searchIndex = function(query, type, facets=null, collection=null, pageNu
       }
     }
 
-    // Temporarily handle page requests <10000
-    if(data.body.from + data.body.size > 10000) {
-      callback("We're sorry, this feature has not yet been implemented. Please select a page between 1 and 1000", {})
-    }
-
-    else {
-      // Query thendex
-      es.search(data, function (error, response, status) {
-        if (error || typeof response == 'undefined'){
-          callback(error, {});
-        }
-        else {
-          returnResponseData(facets, response, callback);
-        }
-      });
-    }
+    es.search(data, function (error, response, status) {
+      if (error || typeof response == 'undefined'){
+        callback(error, {});
+      }
+      else {
+        returnResponseData(facets, response, callback);
+      }
+    });
 }
 
 /**
